@@ -2,6 +2,7 @@ name = "image-gallery"
 main = "worker.js"
 compatibility_date = "2024-11-20"
 
+# Assets configuration
 [site]
 bucket = "./dist"
 

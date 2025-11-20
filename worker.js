@@ -1,4 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import manifestJSON from "__STATIC_CONTENT_MANIFEST";
+
+const assetManifest = JSON.parse(manifestJSON);
 
 /**
  * The DEBUG flag will do two things that help during development:
@@ -7,7 +10,7 @@ import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
  * 2. we will return an error message on exception in your Response rather
  *    than the default 404.html page.
  */
-const DEBUG = false;
+const DEBUG = true;
 
 export default {
   async fetch(request, env, ctx) {
@@ -22,7 +25,7 @@ export default {
         },
         {
           ASSET_NAMESPACE: env.__STATIC_CONTENT,
-          ASSET_MANIFEST: __STATIC_CONTENT_MANIFEST,
+          ASSET_MANIFEST: assetManifest,
           cacheControl: {
             browserTTL: 60 * 60 * 24 * 365, // 1 year
             edgeTTL: 60 * 60 * 24 * 30, // 30 days
@@ -41,7 +44,7 @@ export default {
             },
             {
               ASSET_NAMESPACE: env.__STATIC_CONTENT,
-              ASSET_MANIFEST: __STATIC_CONTENT_MANIFEST,
+              ASSET_MANIFEST: assetManifest,
             }
           );
 
